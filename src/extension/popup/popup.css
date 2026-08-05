@@ -1,0 +1,139 @@
+/* Stili del popup dell'estensione. */
+
+:root {
+  --accent: #1a73e8;
+  --text: #202124;
+  --muted: #5f6368;
+  --border: #dadce0;
+  --surface: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --border: #3c4043;
+    --surface: #202124;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  margin: 0;
+  padding: 16px;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.version {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.field {
+  /* Etichetta a sinistra, controllo a destra: allineati sul bordo destro i
+     controlli formano una colonna unica, più facile da percorrere con lo
+     sguardo rispetto a etichette e controlli incolonnati insieme. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+input[type='text'],
+select {
+  /* Larghezza fissa: i controlli restano allineati fra loro anche quando le
+     etichette hanno lunghezze diverse. */
+  width: 150px;
+  flex-shrink: 0;
+  padding: 7px 9px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+input[type='text']:focus,
+select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkbox input {
+  /* La casella segue i menu a discesa sul bordo destro. */
+  order: 1;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.primary {
+  width: 100%;
+  padding: 10px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.primary:hover {
+  filter: brightness(1.08);
+}
+
+.hint,
+.status {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.status:empty {
+  display: none;
+}

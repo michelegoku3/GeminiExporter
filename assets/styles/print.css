@@ -1,0 +1,69 @@
+/* Regole di stampa
+   Applicate quando il documento viene stampato o salvato come PDF.
+   Generato dall'estensione Gemini Chat Exporter. */
+
+@media print {
+  .print-toolbar {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  .content-wrapper {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+  @page {
+    margin: 18mm 16mm 18mm 16mm;
+    size: A4;
+  }
+  .pdf-header h1 {
+    font-size: 16pt;
+  }
+  .user-message {
+    break-inside: avoid;
+  }
+  .markdown pre {
+    break-inside: avoid;
+  }
+  .markdown table {
+    break-inside: avoid;
+  }
+  .markdown h3 {
+    break-after: avoid;
+    border-bottom: none;
+  }
+  .markdown h2,
+  .markdown h1 {
+    break-after: avoid;
+  }
+  .markdown blockquote {
+    break-inside: avoid;
+  }
+  .katex-display {
+    break-inside: avoid;
+  }
+  .pdf-footer {
+    margin-top: 24px;
+  }
+  .turn-separator {
+    break-before: auto;
+    break-after: avoid;
+  }
+  /* L'avviso resta visibile in stampa: segnala un PDF potenzialmente difettoso. */
+  .gex-warning {
+    break-inside: avoid;
+  }
+  /* Un'immagine non va spezzata fra due pagine. */
+  .markdown img {
+    break-inside: avoid;
+    max-width: 100%;
+  }
+}
+
+/* Un grafico non deve essere spezzato fra due pagine. */
+figure[data-embedded-app] {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}

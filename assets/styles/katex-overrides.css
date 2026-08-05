@@ -1,0 +1,82 @@
+/* Correzioni KaTeX per la stampa
+
+   PRINCIPIO: KaTeX posiziona ogni simbolo con un proprio motore di layout
+   basato su tabelle CSS (.vlist-t / .vlist-r / .vlist) e su span di geometria
+   con `style` inline. Il foglio katex.min.css è già completo e corretto.
+
+   Questo file deve quindi limitarsi a:
+     1. nascondere il MathML destinato agli screen reader;
+     2. gestire i margini dei blocchi display;
+     3. evitare che gli stili del documento "sporchino" l'interno delle formule.
+
+   ⚠️  NON ridichiarare `display` su .mord, .mfrac, .base, .vlist e simili:
+   forzarli a inline-block sovrascrive il display tabellare usato da KaTeX e
+   fa collassare frazioni, integrali, matrici e apici. È esattamente il bug
+   documentato in docs/BUGFIX-KATEX.md. */
+
+/* --- 1. MathML: solo per screen reader, mai visibile in stampa --- */
+.katex-mathml {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+/* --- 2. Formule in blocco --- */
+.katex-display {
+  display: block;
+  margin: 16px 0;
+  text-align: center;
+  /* Le formule larghe (matrici) devono poter uscire senza rompere il layout. */
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  white-space: nowrap;
+  text-align: initial;
+}
+
+/* --- 3. Isolamento dagli stili del documento ---
+   Le regole tipografiche di document.css (line-height 1.75, margini dei
+   paragrafi, word-break) altererebbero i calcoli di KaTeX. */
+.katex {
+  /* Valore richiesto da KaTeX per la corretta metrica verticale. */
+  line-height: 1.2;
+  text-indent: 0;
+  text-rendering: auto;
+  white-space: normal;
+  word-wrap: normal;
+  word-break: normal;
+}
+
+.katex * {
+  /* Impedisce che `word-break: break-word` del markdown spezzi i simboli. */
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Il colore rosso del codice inline non deve colpire i simboli matematici. */
+.katex .mord,
+.katex .mop,
+.katex .mrel,
+.katex .mbin {
+  color: inherit;
+  background: none;
+}
+
+/* --- 4. Fallback testuale in LaTeX ---
+   Usato quando incontriamo MathML senza la resa visiva di KaTeX. */
+.gex-latex-fallback {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: #f1f3f4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #1a73e8;
+  font-size: 0.95em;
+}

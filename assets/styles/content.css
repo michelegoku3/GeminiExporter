@@ -1,0 +1,221 @@
+/* ============================================
+   Gemini Chat Exporter — Stili dei pulsanti iniettati e dei toast
+   Le classi qui definite sono dichiarate in src/shared/config.js (UI_CLASS):
+   modificando un nome, aggiornare entrambi i file.
+   ============================================ */
+
+/* --- Export Button --- */
+.gex-btn-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.gex-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+  padding: 0;
+  position: relative;
+}
+
+.gex-btn:hover {
+  background-color: rgba(60, 64, 67, 0.08);
+}
+
+.gex-btn:active {
+  transform: scale(0.92);
+}
+
+.gex-btn svg {
+  width: 18px;
+  height: 18px;
+  color: #5f6368;
+  transition: color 0.2s ease;
+}
+
+/* Success state */
+.gex-btn.gex-success {
+  background-color: rgba(52, 168, 83, 0.15);
+}
+
+.gex-btn.gex-success svg {
+  color: #34a853;
+}
+
+/* Disabled state (durante l'esportazione) */
+.gex-btn:disabled {
+  cursor: default;
+}
+
+/* Loading state */
+.gex-btn.gex-loading svg {
+  animation: gex-spin 0.8s linear infinite;
+}
+
+@keyframes gex-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .gex-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .gex-btn svg {
+    color: #9aa0a6;
+  }
+
+  .gex-btn.gex-success {
+    background-color: rgba(52, 168, 83, 0.25);
+  }
+
+  .gex-btn.gex-success svg {
+    color: #81c995;
+  }
+}
+
+/* Gemini dark mode class */
+.dm .gex-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dm .gex-btn svg {
+  color: #9aa0a6;
+}
+
+/* --- Toast Notification --- */
+.gex-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-family:
+    'Google Sans',
+    'Segoe UI',
+    Roboto,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10000;
+  opacity: 0;
+  transition:
+    opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* I messaggi di errore sono descrittivi: devono poter andare a capo. */
+  max-width: min(90vw, 520px);
+  line-height: 1.45;
+  text-align: center;
+}
+
+.gex-toast.gex-toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.gex-toast.gex-toast-success {
+  background: #1a73e8;
+  color: #fff;
+}
+
+.gex-toast.gex-toast-error {
+  background: #d93025;
+  color: #fff;
+}
+
+.gex-toast.gex-toast-info {
+  background: #202124;
+  color: #e8eaed;
+}
+
+@media (prefers-color-scheme: dark) {
+  .gex-toast.gex-toast-success {
+    background: #8ab4f8;
+    color: #202124;
+  }
+}
+
+/* --- Modalità di selezione dei turni ---
+   L'utente sceglie cosa esportare cliccando i messaggi. Il cursore e
+   l'evidenziazione al passaggio comunicano che l'intera coppia
+   domanda-risposta è cliccabile come una cosa sola. */
+.gex-selecting .conversation-container {
+  cursor: pointer;
+  border-radius: 12px;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Al passaggio il turno è grigio: segnala che è cliccabile senza anticipare
+   il verde, che resta riservato a ciò che è stato davvero scelto. */
+.gex-selecting .conversation-container:hover {
+  background-color: rgba(60, 64, 67, 0.07);
+  box-shadow: 0 0 0 2px rgba(60, 64, 67, 0.22);
+}
+
+/* Il turno selezionato resta verde anche sotto il puntatore: l'evidenza della
+   scelta ha la precedenza su quella del passaggio. */
+.gex-selecting .conversation-container.gex-turn-selected:hover {
+  background-color: rgba(30, 142, 62, 0.12);
+  box-shadow: 0 0 0 2px rgba(30, 142, 62, 0.55);
+}
+
+/* Il testo diventa verde: è il segnale richiesto, e resta leggibile sia su
+   fondo chiaro sia su fondo scuro. Il colore si applica per ereditarietà,
+   così copre domanda e risposta senza doverle selezionare singolarmente. */
+.gex-turn-selected,
+.gex-turn-selected * {
+  color: #1e8e3e !important;
+}
+
+.gex-turn-selected {
+  background-color: rgba(30, 142, 62, 0.08);
+  box-shadow: 0 0 0 2px rgba(30, 142, 62, 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  .gex-turn-selected,
+  .gex-turn-selected * {
+    color: #81c995 !important;
+  }
+
+  .gex-selecting .conversation-container:hover {
+    background-color: rgba(232, 234, 237, 0.07);
+    box-shadow: 0 0 0 2px rgba(232, 234, 237, 0.2);
+  }
+
+  .gex-selecting .conversation-container.gex-turn-selected:hover {
+    background-color: rgba(129, 201, 149, 0.16);
+    box-shadow: 0 0 0 2px rgba(129, 201, 149, 0.6);
+  }
+
+  .gex-turn-selected {
+    background-color: rgba(129, 201, 149, 0.12);
+    box-shadow: 0 0 0 2px rgba(129, 201, 149, 0.5);
+  }
+}

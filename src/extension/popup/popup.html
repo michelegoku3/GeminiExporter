@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gemini Chat Exporter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Gemini Chat Exporter</h1>
+      <span class="version" id="version"></span>
+    </header>
+
+    <main>
+      <section class="section">
+        <label class="field">
+          <span class="field-label">Lingua di data e ora</span>
+          <select id="locale">
+            <option value="it-IT">Italiano (it-IT)</option>
+            <option value="en-GB">English (en-GB)</option>
+            <option value="en-US">English (en-US)</option>
+            <option value="fr-FR">Français (fr-FR)</option>
+            <option value="de-DE">Deutsch (de-DE)</option>
+            <option value="es-ES">Español (es-ES)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Livello di log (console)</span>
+          <select id="logLevel">
+            <option value="silent">Nessuno</option>
+            <option value="error">Solo errori</option>
+            <option value="warn">Avvisi</option>
+            <option value="info">Informativo</option>
+            <option value="debug">Debug</option>
+          </select>
+        </label>
+      </section>
+
+      <p class="status" id="status" role="status"></p>
+    </main>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

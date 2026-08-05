@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gemini Chat Exporter</title>
+    <style>
+      /* Schermata mostrata solo finché il documento non è stato scritto. */
+      .gex-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        color: #5f6368;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gex-loading" id="status">Preparazione del documento…</div>
+    <!-- Script esterno, non inline: le pagine dell'estensione consentono
+         solo 'self', e un <script> inline verrebbe bloccato. -->
+    <script type="module" src="viewer.js"></script>
+  </body>
+</html>

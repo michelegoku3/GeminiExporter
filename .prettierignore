@@ -1,0 +1,17 @@
+# Librerie di terze parti: non vanno riformattate.
+assets/styles/katex.min.css
+
+# File generati da script: la formattazione è decisa dal generatore.
+# `katex-fonts.css` contiene 341 KB di base64 su righe lunghissime.
+assets/styles/katex-fonts.css
+
+# Artefatti e dipendenze
+node_modules/
+dist/
+coverage/
+
+# Codice della versione precedente, conservato solo come riferimento locale.
+.legacy/
+
+# Anteprima generata dagli script di verifica.
+docs/preview-export.html
